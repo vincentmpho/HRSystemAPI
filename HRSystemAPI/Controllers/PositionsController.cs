@@ -25,7 +25,7 @@ namespace HRSystemAPI.Controllers
             return Ok(positions);
         }
 
-        // GET: api/Positions/5
+        // GET: api/Positions
         [HttpGet("{id}")]
         public async Task<ActionResult<Position>> GetPosition(int id)
         {

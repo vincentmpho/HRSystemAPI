@@ -27,7 +27,7 @@ namespace HRSystemAPI.Controllers
             return await _hRDbContext.Persons.ToListAsync();
         }
 
-        // GET: api/Persons/5
+        // GET: api/Persons
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> GetPerson(int id)
         {
@@ -41,7 +41,7 @@ namespace HRSystemAPI.Controllers
             return person;
         }
 
-        // PUT: api/Persons/5
+        // PUT: api/Persons
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePerson(int id, Person person)
         {
@@ -81,7 +81,7 @@ namespace HRSystemAPI.Controllers
             return CreatedAtAction("GetPerson", new { id = person.Id }, person);
         }
 
-        // DELETE: api/Persons/5
+        // DELETE: api/Persons
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePerson(int id)
         {

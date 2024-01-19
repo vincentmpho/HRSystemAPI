@@ -25,7 +25,7 @@ namespace HRSystemAPI.Controllers
             return Ok(salaries);
         }
 
-        // GET: api/Salaries/5
+        // GET: api/Salaries
         [HttpGet("{id}")]
         public async Task<ActionResult<Salary>> GetSalary(int id)
         {

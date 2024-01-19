@@ -28,7 +28,7 @@ namespace HRSystemAPI.Controllers
                 return Ok(departments);
             }
 
-            // GET: api/Departments/5
+            // GET: api/Departments
             [HttpGet("{id}")]
             public async Task<ActionResult<Department>> GetDepartment(int id)
             {
