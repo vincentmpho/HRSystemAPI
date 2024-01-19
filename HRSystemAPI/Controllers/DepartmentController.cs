@@ -9,93 +9,38 @@ namespace HRSystemAPI.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly HRDbContext _hRDbContext;
-
-        public DepartmentController(HRDbContext hRDbContext)
+        [Route("api/[controller]")]
+        [ApiController]
+        public class DepartmentsController : ControllerBase
         {
-            _hRDbContext = hRDbContext;
-        }
+            private readonly HRDbContext _hRDbContext;
 
-        // GET: api/Department
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Department>>> GetDepartments()
-        {
-            return StatusCode(StatusCodes.Status200OK, await _hRDbContext.Departments.ToListAsync());
-        }
-
-        // GET: api/Department/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Department>> GetDepartment(int id)
-        {
-            var department = await _hRDbContext.Departments.FindAsync(id);
-
-            if (department == null)
+            public DepartmentsController(HRDbContext context)
             {
-                return NotFound();
+                _hRDbContext = context;
             }
 
-            return StatusCode(StatusCodes.Status200OK, department);
-        }
-
-        // POST: api/Department
-        [HttpPost]
-        public async Task<ActionResult<Department>> PostDepartment(Department department)
-        {
-            _hRDbContext.Departments.Add(department);
-            await _hRDbContext.SaveChangesAsync();
-
-            return StatusCode(StatusCodes.Status201Created, CreatedAtAction("GetDepartment", new { id = department.Id }, department));
-        }
-
-        // PUT: api/Department/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartment(int id, Department department)
-        {
-            if (id != department.Id)
+            // GET: api/Departments
+            [HttpGet]
+            public async Task<ActionResult<IEnumerable<Department>>> GetDepartments()
             {
-                return BadRequest();
+                var departments = await _hRDbContext.Departments.ToListAsync();
+                return Ok(departments);
             }
 
-            _hRDbContext.Entry(department).State = EntityState.Modified;
+            // GET: api/Departments/5
+            [HttpGet("{id}")]
+            public async Task<ActionResult<Department>> GetDepartment(int id)
+            {
+                var department = await _hRDbContext.Departments.FindAsync(id);
 
-            try
-            {
-                await _hRDbContext.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DepartmentExists(id))
+                if (department == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                return Ok(department);
             }
-
-            return StatusCode(StatusCodes.Status200OK, department);
-        }
-
-        // DELETE: api/Department/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDepartment(int id)
-        {
-            var department = await _hRDbContext.Departments.FindAsync(id);
-            if (department == null)
-            {
-                return NotFound();
-            }
-
-            _hRDbContext.Departments.Remove(department);
-            await _hRDbContext.SaveChangesAsync();
-
-            return StatusCode(StatusCodes.Status204NoContent);
-        }
-
-        private bool DepartmentExists(int id)
-        {
-            return _hRDbContext.Departments.Any(e => e.Id == id);
         }
     }
 }
