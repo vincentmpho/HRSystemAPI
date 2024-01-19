@@ -5,7 +5,7 @@ namespace HRSystemAPI.Data
 {
     public class HRDbContext : DbContext
     {
-        public HRDbContext(DbContextOptions<HRDbContext> options) : base(options)
+        public HRDbContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -14,6 +14,5 @@ namespace HRSystemAPI.Data
         public DbSet<Salary> Salarys { get; set;}
         public DbSet<PersonDetails> PersonDetails { get; set; }
         public DbSet<Department> Departments { get; set; }
-
     }
 }
